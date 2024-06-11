@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Pharmacie</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{style.css}" />
+
+</head>
+
+    <body>
+    <div class="sidebar">
+        <a href="/static">Accueil</a>
+        <a href="/operations">Opérations</a>
+    </div>
+
+
+
+
+<!-- Include Header -->
+<!--<div th:include="Header/header :: header"></div>-->
+
+<!--&lt;!&ndash; Conditional Inclusion of Body Fragments &ndash;&gt;-->
+
+
+    <div class="main-content">
+        <div th:include="Header/header :: header"></div>
+        <div th:if="${path == '/products'}" th:include="Body/products :: products " ></div>
+        <div th:if="${path == '/clients'}" th:include="Body/clients :: clients "></div>
+        <div th:if="${path == '/stocks'}" th:include="Body/stocks :: stocks"></div>
+        <div th:if="${path == '/sales'}" th:include="Body/sales :: sales"></div>
+        <div th:if="${path == '/suppliers'}" th:include="Body/suppliers :: suppliers"></div>
+    </div>
+    <div th:include="Body/Forms/form_client :: form_client" ></div>
+    <div th:include="Body/Forms/form_client :: form_product" ></div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+
+
+    </script>
+    <script>
+    </script>
+
+
+
+</body>
+</html>

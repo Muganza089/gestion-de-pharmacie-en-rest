@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sales</title>
+</head>
+<body>
+
+<div th:fragment="sales">
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <input type="text" class="form-control w-25" placeholder="Search">
+            <button class="btn btn-success justify-content-start" th:onclick="|window.location='@{/addSales}'|">Ajouter</button>
+        </div>
+    <!-- Sales Table -->
+    <div class="table-container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Client</th>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix Total</th>
+                <th>Date de Vente</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sale : ${sales}">
+                <td th:text="${sale.client.nom}">Nom du Client</td>
+                <td th:text="${sale.produit.nom}">Nom du Produit</td>
+                <td th:text="${sale.quantite}">Quantité</td>
+                <td th:text="${sale.prixTotal}">Prix Total</td>
+                <td th:text="${#dates.format(sale.dateVente, 'dd/MM/yyyy')}">Date de Vente</td>
+                <td>
+                    <button class="btn btn-warning" th:onclick="|window.location='@{/editClient/{id}(id=${client.id})}'|">Modifier</button>
+                    <button class="btn btn-danger" th:onclick="|deleteSales(${vente.id})|">Supprimer</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function deleteSales(id) {
+        if (confirm('Etes vous sur de supprimer cette vente ?')) {
+            fetch(`/api/ventes/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert('Echec de suppression de la vente !');
+                    }
+                });
+        }
+    }
+</script>
+</body>
+</html>

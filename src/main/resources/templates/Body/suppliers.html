@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suppliers</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:fragment="suppliers">
+  <div class="table-container">
+    <div class="d-flex justify-content-between mb-3">
+      <input type="text" class="form-control w-25" placeholder="Search">
+      <button class="btn btn-success" data-toggle="modal" data-target="#addSupplierModal">Ajouter</button>
+    </div>
+
+    <!-- Suppliers Table -->
+    <div class="table-container">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Nom du Fournisseur</th>
+          <th>Adresse</th>
+          <th>Contact</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="fournisseur : ${fournisseurs}">
+          <td th:text="${fournisseur.nom}">Nom du Fournisseur</td>
+          <td th:text="${fournisseur.adresse}">Adresse</td>
+          <td th:text="${fournisseur.contact}">Contact</td>
+          <td>
+            <button class="btn btn-warning"
+                    data-id="${fournisseur.id}"
+                    data-nom="${fournisseur.nom}"
+                    data-adresse="${fournisseur.adresse}"
+                    data-contact="${fournisseur.contact}"
+                    onclick="showEditSupplierModal(this)">
+              Modifier
+            </button>
+            <button class="btn btn-danger" th:onclick="|deleteSuppliers(${fournisseur.id})|">Supprimer</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Add Supplier Modal -->
+<div class="modal fade" id="addSupplierModal" tabindex="-1" role="dialog" aria-labelledby="addSupplierModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addSupplierModalLabel">Ajouter un Fournisseur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addSupplierForm">
+          <div class="form-group">
+            <label for="addSupplierNom">Nom</label>
+            <input type="text" class="form-control" id="addSupplierNom" name="nom" required>
+          </div>
+          <div class="form-group">
+            <label for="addSupplierAdresse">Adresse</label>
+            <input type="text" class="form-control" id="addSupplierAdresse" name="adresse" required>
+          </div>
+          <div class="form-group">
+            <label for="addSupplierContact">Contact</label>
+            <input type="text" class="form-control" id="addSupplierContact" name="contact" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Supplier Modal -->
+<div class="modal fade" id="editSupplierModal" tabindex="-1" role="dialog" aria-labelledby="editSupplierModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editSupplierModalLabel">Modifier le Fournisseur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editSupplierForm">
+          <input type="hidden" id="editSupplierId" name="id">
+          <div class="form-group">
+            <label for="editSupplierNom">Nom</label>
+            <input type="text" class="form-control" id="editSupplierNom" name="nom" required>
+          </div>
+          <div class="form-group">
+            <label for="editSupplierAdresse">Adresse</label>
+            <input type="text" class="form-control" id="editSupplierAdresse" name="adresse" required>
+          </div>
+          <div class="form-group">
+            <label for="editSupplierContact">Contact</label>
+            <input type="text" class="form-control" id="editSupplierContact" name="contact" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

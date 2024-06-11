@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    margin: 0;
+}
+.sidebar {
+    width: 200px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar a {
+    margin: 10px 0;
+    text-decoration: none;
+    color: #000;
+}
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+.header img {
+    height: 50px;
+}
+.profile {
+    display: flex;
+    align-items: center;
+}
+.profile img {
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.nav-links {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+.nav-links a {
+    color: #46494d;
+    text-decoration: none;
+    padding: 3px 5px; /* Significantly reduced spacing */
+    margin: 0 2px; /* Significantly reduced margin */
+    border: 1px solid transparent;
+}
+.table-container {
+    padding: 20px;
+    flex: 1;
+}
+.btn-warning {
+    background-color: orange;
+    border-color: orange;
+}
+.btn-danger {
+    background-color: red;
+    border-color: red;
+}

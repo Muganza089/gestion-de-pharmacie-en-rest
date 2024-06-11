@@ -1,0 +1,53 @@
+<!-- File: templates/Body/products.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Pharmacie</title>
+    </head>
+<div th:fragment="products">
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <input type="text" class="form-control w-25" placeholder="Search">
+            <button class="btn btn-success" data-toggle="modal" data-target="#addProductModal">Ajouter</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom du Produit</th>
+                <th>Numéro de Lot</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="produit : ${products}">
+                <td th:text="${produit.nom}">Nom du Produit</td>
+                <td th:text="${produit.numeroLot}">Numéro de Lot</td>
+                <td th:text="${produit.quantite}">Quantité</td>
+                <td th:text="${produit.prix}">Prix</td>
+                <td><button class="btn btn-warning"
+                            data-id="${produit.id}"
+                            data-nom="${produit.nom}"
+                            data-quantite="${produit.quantite}"
+                            data-numeroLot="${produit.numeroLot}"
+                            data-prix="${produit.prix}"
+                            onclick="showEditProductModal(this)">
+                    Modifier
+                </button>
+                    <button class="btn btn-danger" th:onclick="|deleteProduct(${produit.id})|">Supprimer</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Clients</title>
+    <link rel="stylesheet" th:href="@{../../static/style.css}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+
+
+<div th:fragment="clients">
+
+    <!-- Clients Table -->
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <input type="text" class="form-control w-25" placeholder="Search">
+            <button class="btn btn-success" data-toggle="modal" data-target="#addClientModal">Ajouter</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Nom du Client</th>
+                <th>Adresse</th>
+                <th>Contact</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="client : ${clients}">
+                <td th:text="${client.nom}">Nom du Client</td>
+                <td th:text="${client.adresse}">Adresse</td>
+                <td th:text="${client.contact}">Contact</td>
+                <td>
+                    <button class="btn btn-warning"
+                            data-id="${client.id}"
+                            data-nom="${client.nom}"
+                            data-adresse="${client.adresse}"
+                            data-contact="${client.contact}"
+                            onclick="showEditClientModal(this)">
+                        Modifier
+                    </button>
+                    <button class="btn btn-danger" th:onclick="|deleteClient(${client.id})|">Supprimer</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

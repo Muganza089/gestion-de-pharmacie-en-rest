@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock</title>
+</head>
+<body>
+
+<div th:fragment="stocks">
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <input type="text" class="form-control w-25" placeholder="Search">
+            <button class="btn btn-success justify-content-start" th:onclick="|window.location='@{/addStock}'|">Ajouter</button>
+        </div>
+        <!-- Sales Table -->
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Produit en stock</th>
+                    <th>Quantité</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="stock : ${stocks}">
+                    <td th:text="${stock.id}">ID</td>
+                    <td th:text="${stock.produit.nom}">Produit en stock</td>
+                    <td th:text="${stock.quantite}">Quantité</td>
+                    <td>
+                        <button class="btn btn-warning" th:onclick="|window.location='@{/editClient/{id}(id=${client.id})}'|">Modifier</button>
+                        <button class="btn btn-danger" th:onclick="|deleteStock(${stock.id})|">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function deleteStock(id) {
+        if (confirm('Etes vous sur de supprimer ce stock ?')) {
+            fetch(`/api/stocks/${id}`, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert('Echec de suppression du stock');
+                    }
+                });
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,9 +1,8 @@
-package org.example.gestionpharmacie.controllers;
+package org.example.gestionpharmacie.Restcontrollers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.gestionpharmacie.models.Client;
 import org.example.gestionpharmacie.services.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

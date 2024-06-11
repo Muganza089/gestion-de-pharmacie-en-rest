@@ -8,8 +8,12 @@ import java.util.Optional;
 
 @Service
 public class VenteService {
-    @Autowired
-    private VenteRepository venteRepository;
+
+    private final VenteRepository venteRepository;
+
+    public VenteService(VenteRepository venteRepository) {
+        this.venteRepository = venteRepository;
+    }
 
     public List<Vente> getAllVentes() {
         return venteRepository.findAll();
