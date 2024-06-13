@@ -186,13 +186,13 @@ function deleteCommande(id) {
 
 function showEditCommandeModal(button) {
     const id = button.getAttribute('data-id');
-    const clientId = button.getAttribute('data-client-id');
+    const fournisseurId = button.getAttribute('data-fournisseur-id');
     const produitId = button.getAttribute('data-produit-id');
     const quantite = button.getAttribute('data-quantite');
     const dateCommande = button.getAttribute('data-date-commande');
 
     document.getElementById('editCommandeId').value = id;
-    document.getElementById('editCommandeClient').value = clientId;
+    document.getElementById('editCommandeFournisseur').value = fournisseurId;
     document.getElementById('editCommandeProduit').value = produitId;
     document.getElementById('editCommandeQuantite').value = quantite;
     document.getElementById('editCommandeDate').value = dateCommande;

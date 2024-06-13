@@ -18,9 +18,9 @@
                 <div class="modal-body">
                     <form id="addCommandeForm">
                         <div class="form-group">
-                            <label for="addCommandeClient">Client</label>
-                            <select id="addCommandeClient" name="clientId" class="form-control">
-                                <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.nom}">Client</option>
+                            <label for="addCommandeFournisseur">Fournisseur</label>
+                            <select id="addCommandeFournisseur" name="clientId" class="form-control">
+                                <option th:each="supplier : ${suppliers}" th:value="${supplier.id}" th:text="${supplier.nom}">Fournisseur</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -58,8 +58,8 @@
                     <form id="editCommandeForm">
                         <input type="hidden" id="editCommandeId" name="id">
                         <div class="form-group">
-                            <label for="editCommandeClient">Client</label>
-                            <select id="editCommandeClient" name="clientId" class="form-control">
+                            <label for="editCommandeFournisseur">Client</label>
+                            <select id="editCommandeFournisseur" name="clientId" class="form-control">
                                 <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.nom}">Client</option>
                             </select>
                         </div>

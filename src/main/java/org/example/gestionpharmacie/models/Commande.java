@@ -16,8 +16,8 @@ public class Commande {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private Client client;
+    @JoinColumn(name = "Fournisseur_id", referencedColumnName = "id")
+    private Fournisseur fournisseur;
 
     @ManyToOne
     @JoinColumn(name = "produit_id", referencedColumnName = "id")

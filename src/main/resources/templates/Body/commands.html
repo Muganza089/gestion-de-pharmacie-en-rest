@@ -18,7 +18,7 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Client</th>
+                <th>Fournisseur</th>
                 <th>Produit</th>
                 <th>Quantité</th>
                 <th>Date de Commande</th>
@@ -28,21 +28,21 @@
             <tbody>
             <tr th:each="commande : ${commands}">
                 <td th:text="${commande.id}">ID</td>
-                <td th:text="${commande.client.nom}">Nom du Client</td>
+                <td th:text="${commande.fournisseur.nom}">Nom du fournisseur</td>
                 <td th:text="${commande.produit.nom}">Nom du Produit</td>
                 <td th:text="${commande.quantite}">Quantité</td>
                 <td th:text="${#dates.format(commande.dateCommande, 'dd/MM/yyyy')}">Date de Commande</td>
                 <td>
                     <button class="btn btn-warning"
                             data-id="${commande.id}"
-                            data-client-id="${commande.client.id}"
+                            data-fournisseur-id="${commande.fournisseur.id}"
                             data-produit-id="${commande.produit.id}"
                             data-quantite="${commande.quantite}"
                             data-date-commande="${#dates.format(commande.dateCommande, 'yyyy-MM-dd')}"
                             onclick="showEditCommandeModal(this)">
                         Modifier
                     </button>
-                    <button class="btn btn-danger" th:formaction="|@{/api/commandes/{id}(id=${commande.id})}|" th:method="delete" th:onclick="return confirm('Etes-vous sûr de vouloir supprimer cette commande ?')">Supprimer</button>
+                    <button class="btn btn-danger" th:onclick="|deleteCommande(${commande.id})|">Supprimer</button>
 
                 </td>
             </tr>

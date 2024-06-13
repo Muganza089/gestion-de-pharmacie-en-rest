@@ -50,7 +50,7 @@ public class MainController {
     @GetMapping("commands")
     public String showOrdersPage(Model model) {
         model.addAttribute("commands", commandeService.getAllCommandes());
-        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("suppliers", fournisseurService.getAllFournisseurs());
         model.addAttribute("products", produitService.getAllProduits());
         model.addAttribute("path", "/commands");
         return "index";

@@ -37,7 +37,7 @@ public class CommandeController {
         Optional<Commande> commandeOptional = commandeService.getCommandeById(id);
         if (commandeOptional.isPresent()) {
             Commande commande = commandeOptional.get();
-            commande.setClient(commandeDetails.getClient());
+            commande.setFournisseur(commandeDetails.getFournisseur());
             commande.setProduit(commandeDetails.getProduit());
             commande.setQuantite(commandeDetails.getQuantite());
             commande.setDateCommande(commandeDetails.getDateCommande());
