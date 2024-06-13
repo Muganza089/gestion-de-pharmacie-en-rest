@@ -9,8 +9,11 @@ import java.util.Optional;
 
 @Service
 public class CommandeService {
-    @Autowired
     private CommandeRepository commandeRepository;
+
+    public CommandeService(CommandeRepository commandeRepository) {
+        this.commandeRepository = commandeRepository;
+    }
 
     public List<Commande> getAllCommandes() {
         return commandeRepository.findAll();

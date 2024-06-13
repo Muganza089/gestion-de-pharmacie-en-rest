@@ -12,8 +12,12 @@ import java.util.Optional;
 
 @Service
 public class StockService {
-    @Autowired
+
     private StockRepository stockRepository;
+    public StockService(StockRepository stockRepository) {
+        this.stockRepository = stockRepository;
+    }
+
 
     public List<Stock> getAllStocks() {
         return stockRepository.findAll();

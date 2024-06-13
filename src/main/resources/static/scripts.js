@@ -100,8 +100,11 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
 //SUPPLIERS
 
 
-function deleteSuppliers(id) {
-    if (confirm('Etes vous sur de supprimer ce fournisseur ?')) {
+//Fournisseurs
+
+
+function deleteSupplier(id) {
+    if (confirm('Etes-vous sûr de vouloir supprimer ce fournisseur ?')) {
         fetch(`/api/fournisseurs/${id}`, {
             method: 'DELETE'
         })
@@ -109,7 +112,7 @@ function deleteSuppliers(id) {
                 if (response.ok) {
                     window.location.reload();
                 } else {
-                    alert('Echec de suppression du fournisseur !');
+                    alert('Échec de la suppression du fournisseur');
                 }
             });
     }
@@ -141,15 +144,16 @@ document.getElementById('addSupplierForm').addEventListener('submit', function(e
         if (response.ok) {
             window.location.reload();
         } else {
-            alert('Echec de l\'ajout du fournisseur');
+            alert('Échec de l\'ajout du fournisseur');
         }
     });
 });
 
 document.getElementById('editSupplierForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    const id = document.getElementById('editSupplierId').value;
     const formData = new FormData(this);
-    fetch('/api/fournisseurs/' + document.getElementById('editSupplierId').value, {
+    fetch(`/api/fournisseurs/${id}`, {
         method: 'PUT',
         body: JSON.stringify(Object.fromEntries(formData)),
         headers: {
@@ -159,7 +163,75 @@ document.getElementById('editSupplierForm').addEventListener('submit', function(
         if (response.ok) {
             window.location.reload();
         } else {
-            alert('Echec de la modification du fournisseur');
+            alert('Échec de la modification du fournisseur');
+        }
+    });
+});
+
+//commands
+function deleteCommande(id) {
+    if (confirm('Etes-vous sûr de vouloir supprimer cette commande ?')) {
+        fetch(`/api/commandes/${id}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Échec de la suppression de la commande');
+                }
+            });
+    }
+}
+
+function showEditCommandeModal(button) {
+    const id = button.getAttribute('data-id');
+    const clientId = button.getAttribute('data-client-id');
+    const produitId = button.getAttribute('data-produit-id');
+    const quantite = button.getAttribute('data-quantite');
+    const dateCommande = button.getAttribute('data-date-commande');
+
+    document.getElementById('editCommandeId').value = id;
+    document.getElementById('editCommandeClient').value = clientId;
+    document.getElementById('editCommandeProduit').value = produitId;
+    document.getElementById('editCommandeQuantite').value = quantite;
+    document.getElementById('editCommandeDate').value = dateCommande;
+    $('#editCommandeModal').modal('show');
+}
+
+document.getElementById('addCommandeForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    fetch('/api/commandes', {
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('Échec de l\'ajout de la commande');
+        }
+    });
+});
+
+document.getElementById('editCommandeForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const id = document.getElementById('editCommandeId').value;
+    const formData = new FormData(this);
+    fetch(`/api/commandes/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            window.location.reload();
+        } else {
+            alert('Échec de la modification de la commande');
         }
     });
 });

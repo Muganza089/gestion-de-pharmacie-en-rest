@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body><div th:fragment="form_command">
+    <!-- Add Commande Modal -->
+    <div class="modal fade" id="addCommandeModal" tabindex="-1" role="dialog" aria-labelledby="addCommandeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addCommandeModalLabel">Ajouter une Commande</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="addCommandeForm">
+                        <div class="form-group">
+                            <label for="addCommandeClient">Client</label>
+                            <select id="addCommandeClient" name="clientId" class="form-control">
+                                <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.nom}">Client</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="addCommandeProduit">Produit</label>
+                            <select id="addCommandeProduit" name="produitId" class="form-control">
+                                <option th:each="produit : ${products}" th:value="${produit.id}" th:text="${produit.nom}">Produit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="addCommandeQuantite">Quantité</label>
+                            <input type="number" class="form-control" id="addCommandeQuantite" name="quantite" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="addCommandeDate">Date de Commande</label>
+                            <input type="date" class="form-control" id="addCommandeDate" name="dateCommande" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Commande Modal -->
+    <div class="modal fade" id="editCommandeModal" tabindex="-1" role="dialog" aria-labelledby="editCommandeModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editCommandeModalLabel">Modifier la Commande</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editCommandeForm">
+                        <input type="hidden" id="editCommandeId" name="id">
+                        <div class="form-group">
+                            <label for="editCommandeClient">Client</label>
+                            <select id="editCommandeClient" name="clientId" class="form-control">
+                                <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.nom}">Client</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCommandeProduit">Produit</label>
+                            <select id="editCommandeProduit" name="produitId" class="form-control">
+                                <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.nom}">Produit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCommandeQuantite">Quantité</label>
+                            <input type="number" class="form-control" id="editCommandeQuantite" name="quantite" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCommandeDate">Date de Commande</label>
+                            <input type="date" class="form-control" id="editCommandeDate" name="dateCommande" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

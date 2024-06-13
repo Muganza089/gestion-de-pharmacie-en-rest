@@ -30,10 +30,13 @@
         <div th:if="${path == '/clients'}" th:include="Body/clients :: clients "></div>
         <div th:if="${path == '/stocks'}" th:include="Body/stocks :: stocks"></div>
         <div th:if="${path == '/sales'}" th:include="Body/sales :: sales"></div>
+        <div th:if="${path == '/commands'}" th:include="Body/commands :: commands"></div>
         <div th:if="${path == '/suppliers'}" th:include="Body/suppliers :: suppliers"></div>
     </div>
     <div th:include="Body/Forms/form_client :: form_client" ></div>
     <div th:include="Body/Forms/form_client :: form_product" ></div>
+    <div th:include="Body/Forms/form_client :: form_supplier" ></div>
+    <div th:include="Body/Forms/form_command :: form_command" ></div>
 
 
 
@@ -47,8 +50,10 @@
     </script>
     <script>
     </script>
+    <script th:src="@{scripts.js}"></script>
 
 
 
-</body>
+
+    </body>
 </html>

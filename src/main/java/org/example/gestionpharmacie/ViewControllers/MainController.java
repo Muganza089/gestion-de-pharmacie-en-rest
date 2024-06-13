@@ -47,10 +47,12 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("orders")
+    @GetMapping("commands")
     public String showOrdersPage(Model model) {
-        model.addAttribute("orders", commandeService.getAllCommandes());
-        model.addAttribute("path", "/orders");
+        model.addAttribute("commands", commandeService.getAllCommandes());
+        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("products", produitService.getAllProduits());
+        model.addAttribute("path", "/commands");
         return "index";
     }
 

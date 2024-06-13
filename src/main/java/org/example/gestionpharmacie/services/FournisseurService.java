@@ -11,8 +11,12 @@ import java.util.Optional;
 
 @Service
 public class FournisseurService {
-    @Autowired
+
     private FournisseurRepository fournisseurRepository;
+
+    public FournisseurService(FournisseurRepository fournisseurRepository) {
+        this.fournisseurRepository = fournisseurRepository;
+    }
 
     public List<Fournisseur> getAllFournisseurs() {
         return fournisseurRepository.findAll();

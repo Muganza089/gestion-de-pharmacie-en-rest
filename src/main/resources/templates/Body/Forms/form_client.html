@@ -70,76 +70,145 @@
 </div>
 
 <!-- Products -->
-<div th:fragment="form_product">
-  <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addProductModalLabel">Ajouter un Produit</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+      <div th:fragment="form_product">
+        <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addProductModalLabel">Ajouter un Produit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="addProductForm">
+                  <div class="form-group">
+                    <label for="addProductNom">Nom</label>
+                    <input type="text" class="form-control" id="addProductNom" name="nom" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="addProductNumeroLot">Numero lot</label>
+                    <input type="text" class="form-control" id="addProductNumeroLot" name="numeroLot" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="addProductQuantite">Quantite</label>
+                    <input type="text" class="form-control" id="addProductQuantite" name="quantite" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="addProductPrix">Prix</label>
+                    <input type="number" class="form-control" id="addProductPrix" name="prix" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Ajouter</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="modal-body">
-          <form id="addProductForm">
-            <div class="form-group">
-              <label for="addProductNom">Nom</label>
-              <input type="text" class="form-control" id="addProductNom" name="nom" required>
-            </div>
-            <div class="form-group">
-              <label for="addProductNumeroLot">Numero lot</label>
-              <input type="text" class="form-control" id="addProductNumeroLot" name="numeroLot" required>
-            </div>
-            <div class="form-group">
-              <label for="addProductQuantite">Quantite</label>
-              <input type="text" class="form-control" id="addProductQuantite" name="quantite" required>
-            </div>
-            <div class="form-group">
-              <label for="addProductPrix">Prix</label>
-              <input type="number" class="form-control" id="addProductPrix" name="prix" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Ajouter</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Edit Product Modal -->
-  <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editProductModalLabel">Modifier le Produit</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="editProductForm">
-            <input type="hidden" id="editProductId" name="id">
-            <div class="form-group">
-              <label for="editProductNom">Nom</label>
-              <input type="text" class="form-control" id="editProductNom" name="nom" required>
-            </div>
+        <!-- Edit Product Modal -->
+        <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Modifier le Produit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="editProductForm">
+                  <input type="hidden" id="editProductId" name="id">
+                  <div class="form-group">
+                    <label for="editProductNom">Nom</label>
+                    <input type="text" class="form-control" id="editProductNom" name="nom" required>
+                  </div>
 
-            <div class="form-group">
-              <label for="editProductNumeroLot">Numero lot</label>
-              <input type="text" class="form-control" id="editProductNumeroLot" name="numeroLot" required>
+                  <div class="form-group">
+                    <label for="editProductNumeroLot">Numero lot</label>
+                    <input type="text" class="form-control" id="editProductNumeroLot" name="numeroLot" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="editProductDescription">Description</label>
+                    <input type="text" class="form-control" id="editProductDescription" name="description" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="editProductPrix">Prix</label>
+                    <input type="number" class="form-control" id="editProductPrix" name="prix" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Modifier</button>
+                </form>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="editProductDescription">Description</label>
-              <input type="text" class="form-control" id="editProductDescription" name="description" required>
-            </div>
-            <div class="form-group">
-              <label for="editProductPrix">Prix</label>
-              <input type="number" class="form-control" id="editProductPrix" name="prix" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Modifier</button>
-          </form>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+          <div th:fragment="form_supplier">
+                    <!-- Add Supplier Modal -->
+                    <div class="modal fade" id="addSupplierModal" tabindex="-1" role="dialog" aria-labelledby="addSupplierModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="addSupplierModalLabel">Ajouter un Fournisseur</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form id="addSupplierForm">
+                              <div class="form-group">
+                                <label for="addSupplierNom">Nom</label>
+                                <input type="text" class="form-control" id="addSupplierNom" name="nom" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="addSupplierAdresse">Adresse</label>
+                                <input type="text" class="form-control" id="addSupplierAdresse" name="adresse" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="addSupplierContact">Contact</label>
+                                <input type="text" class="form-control" id="addSupplierContact" name="contact" required>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Ajouter</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Edit Supplier Modal -->
+                    <div class="modal fade" id="editSupplierModal" tabindex="-1" role="dialog" aria-labelledby="editSupplierModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="editSupplierModalLabel">Modifier le Fournisseur</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <form id="editSupplierForm">
+                              <input type="hidden" id="editSupplierId" name="id">
+                              <div class="form-group">
+                                <label for="editSupplierNom">Nom</label>
+                                <input type="text" class="form-control" id="editSupplierNom" name="nom" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="editSupplierAdresse">Adresse</label>
+                                <input type="text" class="form-control" id="editSupplierAdresse" name="adresse" required>
+                              </div>
+                              <div class="form-group">
+                                <label for="editSupplierContact">Contact</label>
+                                <input type="text" class="form-control" id="editSupplierContact" name="contact" required>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Modifier</button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+          </div>
+
+
+
+
 </body>
 </html>
+

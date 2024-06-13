@@ -18,6 +18,7 @@ public class Commande {
     @ManyToOne
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
+
     @ManyToOne
     @JoinColumn(name = "produit_id", referencedColumnName = "id")
     private Produit produit;
