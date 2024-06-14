@@ -1,62 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Commandes</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Commander</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div th:fragment="commands">
-    <!-- Commandes Table -->
-    <div class="table-container">
-        <div class="d-flex justify-content-between mb-3">
-            <input type="text" class="form-control w-25" placeholder="Search">
-            <button class="btn btn-success" data-toggle="modal" data-target="#addCommandeModal">Ajouter</button>
-        </div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Fournisseur</th>
-                <th>Produit</th>
-                <th>Quantité</th>
-                <th>Date de Commande</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="commande : ${commands}">
-                <td th:text="${commande.id}">ID</td>
-                <td th:text="${commande.fournisseur.nom}">Nom du fournisseur</td>
-                <td th:text="${commande.produit.nom}">Nom du Produit</td>
-                <td th:text="${commande.quantite}">Quantité</td>
-                <td th:text="${#dates.format(commande.dateCommande, 'dd/MM/yyyy')}">Date de Commande</td>
-                <td>
-                    <button class="btn btn-warning"
-                            data-id="${commande.id}"
-                            data-fournisseur-id="${commande.fournisseur.id}"
-                            data-produit-id="${commande.produit.id}"
-                            data-quantite="${commande.quantite}"
-                            data-date-commande="${#dates.format(commande.dateCommande, 'yyyy-MM-dd')}"
-                            onclick="showEditCommandeModal(this)">
-                        Modifier
-                    </button>
-                    <button class="btn btn-danger" th:onclick="|deleteCommande(${commande.id})|">Supprimer</button>
+<div class="container mt-5 ml-5" th:fragment="commands">
+    <h2 class="text-center">Commander</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <form th:action="@{/submitOrder}" method="post">
 
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                <div class="form-group mb-3">
+                    <label for="editCommandeDate">Date de Commande</label>
+                    <input type="date" class="form-control" id="editCommandeDate" name="dateCommande" required>
+                </div>
+                <div class="mb-3 form-group">
+                    <label for="fournisseur" class="form-label">Fournisseur</label>
+                    <select class="form-control" id="fournisseur" name="fournisseur" th:field="*{fournisseur}">
+                        <option th:each="f : ${suppliers}" th:value="${f.id}" th:text="${f.nom}"></option>
+                    </select>
+                </div>
+                <div class="mb-3 form-group">
+                    <label class="form-label">Liste articles à commander</label>
+                    <input type="text" class="form-control mb-2" id="articleName" name="articleName" placeholder="Nom article">
+                    <input type="number" class="form-control mb-2" id="articleQuantity" name="articleQuantity" placeholder="Quantité">
+                </div>
+                <button type="button" class="btn btn-primary mb-3" id="ajouter">Ajouter</button>
+                <button type="submit" class="btn btn-primary">Soumettre</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Fournisseur</th>
+                    <th>Produits</th>
+                    <th>Quantité</th>
+                </tr>
+                </thead>
+                <tbody id="orderTable">
+                <!-- Les lignes seront ajoutées ici dynamiquement -->
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+    document.getElementById('ajouter').addEventListener('click', function () {
+        var fournisseur = document.getElementById('fournisseur').options[document.getElementById('fournisseur').selectedIndex].text;
+        var articleName = document.getElementById('articleName').value;
+        var articleQuantity = document.getElementById('articleQuantity').value;
 
+        if (fournisseur && articleName && articleQuantity) {
+            var table = document.getElementById('orderTable');
+            var row = table.insertRow();
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+
+            cell1.textContent = fournisseur;
+            cell2.textContent = articleName;
+            cell3.textContent = articleQuantity;
+
+            document.getElementById('articleName').value = '';
+            document.getElementById('articleQuantity').value = '';
+        } else {
+            alert('Veuillez remplir tous les champs');
+        }
+    });
 </script>
 </body>
 </html>
+

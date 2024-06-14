@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
-    @Query("SELECT c FROM Commande c JOIN FETCH c.fournisseur JOIN FETCH c.article")
-    List<Commande> findAll();
+
+    @Query("SELECT c FROM commande c JOIN FETCH c.fournisseur f LEFT JOIN FETCH c.articles a")
+    List<Commande> findAllWithDetails();
 }

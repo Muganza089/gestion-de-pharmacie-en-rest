@@ -38,8 +38,7 @@ public class CommandeController {
         if (commandeOptional.isPresent()) {
             Commande commande = commandeOptional.get();
             commande.setFournisseur(commandeDetails.getFournisseur());
-            commande.setArticle(commandeDetails.getArticle());
-            commande.setQuantite(commandeDetails.getQuantite());
+            commande.setArticles(commandeDetails.getArticles());
             commande.setDateCommande(commandeDetails.getDateCommande());
             return ResponseEntity.ok(commandeService.saveCommande(commande));
         } else {
