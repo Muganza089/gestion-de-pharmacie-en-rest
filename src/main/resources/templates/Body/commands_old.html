@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commandes</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div >
+    <!-- Commandes Table -->
+    <div class="table-container">
+        <div class="d-flex justify-content-between mb-3">
+            <input type="text" class="form-control w-25" placeholder="Search">
+            <button class="btn btn-success" data-toggle="modal" data-target="#addCommandeModal">Ajouter</button>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fournisseur</th>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Date de Commande</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="commande : ${commands}">
+                <td th:text="${commande.id}">ID</td>
+                <td th:text="${commande.fournisseur.nom}">Nom du fournisseur</td>
+                <td th:text="${commande.produit.nom}">Nom du Produit</td>
+                <td th:text="${commande.quantite}">Quantité</td>
+                <td th:text="${#dates.format(commande.dateCommande, 'dd/MM/yyyy')}">Date de Commande</td>
+                <td>
+                    <button class="btn btn-warning"
+                            data-id="${commande.id}"
+                            data-fournisseur-id="${commande.fournisseur.id}"
+                            data-produit-id="${commande.produit.id}"
+                            data-quantite="${commande.quantite}"
+                            data-date-commande="${#dates.format(commande.dateCommande, 'yyyy-MM-dd')}"
+                            onclick="showEditCommandeModal(this)">
+                        Modifier
+                    </button>
+                    <button class="btn btn-danger" th:onclick="|deleteCommande(${commande.id})|">Supprimer</button>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+
+</script>
+</body>
+</html>

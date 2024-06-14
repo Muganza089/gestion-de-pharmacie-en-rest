@@ -16,14 +16,16 @@ public class MainController {
     private final CommandeService commandeService;
     private final FournisseurService fournisseurService;
     private final VenteService venteService;
+    private final ArticleService articleService;
 
-    public MainController(ProduitService produitService, ClientService clientService, StockService stockService, CommandeService commandeService, FournisseurService fournisseurService, VenteService venteService) {
+    public MainController(ProduitService produitService, ClientService clientService, StockService stockService, CommandeService commandeService, FournisseurService fournisseurService, VenteService venteService, ArticleService articleService) {
         this.produitService = produitService;
         this.clientService = clientService;
         this.stockService = stockService;
         this.commandeService = commandeService;
         this.fournisseurService = fournisseurService;
         this.venteService = venteService;
+        this.articleService = articleService;
     }
 
     @GetMapping("products")
@@ -51,7 +53,7 @@ public class MainController {
     public String showOrdersPage(Model model) {
         model.addAttribute("commands", commandeService.getAllCommandes());
         model.addAttribute("suppliers", fournisseurService.getAllFournisseurs());
-        model.addAttribute("products", produitService.getAllProduits());
+        model.addAttribute("articles", articleService.getAllArticles());
         model.addAttribute("path", "/commands");
         return "index";
     }
