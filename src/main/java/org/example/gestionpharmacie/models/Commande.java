@@ -16,12 +16,12 @@ public class Commande {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "Fournisseur_id", referencedColumnName = "id")
+    @JoinColumn(name = "fournisseur_id", referencedColumnName = "id")
     private Fournisseur fournisseur;
 
     @ManyToOne
-    @JoinColumn(name = "produit_id", referencedColumnName = "id")
-    private Produit produit;
+    @JoinColumn(name = "article_id", referencedColumnName = "id")
+    private Article article;
     private int quantite;
     private Date dateCommande;
 
