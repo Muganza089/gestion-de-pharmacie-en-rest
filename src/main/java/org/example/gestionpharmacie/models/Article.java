@@ -17,7 +17,6 @@ public class Article {
     private Long id;
 
     private String nom;
-    private double prix;
 
     @ManyToOne
     @JoinColumn(name = "commande_id")
@@ -25,5 +24,4 @@ public class Article {
 
     private int quantite;
 
-    // Getters and setters
 }

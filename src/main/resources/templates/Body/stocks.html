@@ -9,36 +9,111 @@
 <body>
 
 <div th:fragment="stocks">
-    <div class="table-container">
-        <div class="d-flex justify-content-between mb-3">
-            <input type="text" class="form-control w-25" placeholder="Search">
-            <button class="btn btn-success justify-content-start" th:onclick="|window.location='@{/addStock}'|">Ajouter</button>
+
+
+
+            <h2 class="text-center">Stock</h2>
+            <div class="row m-2">
+                <div class="col-md-6 ">
+                    <form action="#" th:action="@{/addProduitToStock}" th:object="${stock}" method="post" th:method="post">
+
+
+<!--                        <div class="form-group mb-3">-->
+<!--                            <label for="dateCommande">Date de Commande</label>-->
+<!--                            <input th:type="date" class="form-control" id="dateCommande" name="dateCommande" required>-->
+<!--                        </div>-->
+                        <div class="mb-3 form-group">
+                            <label for="produits" class="form-label">Produits</label>
+
+                            <select class="form-control" id="produits" name="produits" required multiple>
+                                <option th:each="p : ${produits}" th:value="${p.id}" th:text="${p.nom}"></option>
+                            </select>
+
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Ajouter au stock</button>
+
+                    </form>
+<!--                    <form action="#" th:action="@{/addProduit}" th:object="${produit}" method="post" th:method="post">-->
+<!--                        <div class="mb-3 form-group">-->
+<!--                            <label class="form-label">Liste articles à commander</label>-->
+<!--                            &lt;!&ndash;&ndash;&gt;-->
+<!--                            <input type="text"  class="form-control mb-2" id="nom" name="nom" placeholder="Nom article">-->
+<!--                            <input type="number"  class="form-control mb-2" id="quantite" name="quantite" placeholder="Quantité">-->
+<!--                        </div>-->
+
+<!--                        <button type="submit" class="btn btn-primary mb-3" id="ajouter">Ajouter</button>-->
+<!--                    </form>-->
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Produits en stock</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr th:each="stock : ${stocks}">
+                            <td th:text="${stock.id}">ID</td>
+                            <td >
+                                <ul th:each="produit : ${stock.produits}">
+                                    <li th:text="${produit.nom}"></li>
+
+                                </ul>
+
+                            </td>
+                            <td>
+                                <button class="btn btn-warning" th:onclick="">Modifier</button>
+                                <button class="btn btn-danger" th:onclick="|deleteStock(${stock.id})|">Supprimer</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <!-- Sales Table -->
-        <div class="table-container">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Produit en stock</th>
-                    <th>Quantité</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="stock : ${stocks}">
-                    <td th:text="${stock.id}">ID</td>
-                    <td th:text="${stock.produit.nom}">Produit en stock</td>
-                    <td th:text="${stock.quantite}">Quantité</td>
-                    <td>
-                        <button class="btn btn-warning" th:onclick="|window.location='@{/editClient/{id}(id=${client.id})}'|">Modifier</button>
-                        <button class="btn btn-danger" th:onclick="|deleteStock(${stock.id})|">Supprimer</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+
+
+
+
+
+
+
+<!--    <div class="table-container">-->
+<!--        <div class="d-flex justify-content-between mb-3">-->
+<!--            <input type="text" class="form-control w-25" placeholder="Search">-->
+<!--            <button class="btn btn-success justify-content-start" th:onclick="|window.location='@{/addStock}'|">Ajouter</button>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Sales Table &ndash;&gt;-->
+<!--        <div class="table-container">-->
+<!--            <table class="table table-striped">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>ID</th>-->
+<!--                    <th>Produit en stock</th>-->
+<!--                    <th>Quantité</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                <tr th:each="stock : ${stocks}">-->
+<!--                    <td th:text="${stock.id}">ID</td>-->
+<!--                    <td th:each="produit : ${stock.produits}">-->
+<!--                        <p th:text="${produit.nom}"></p>-->
+
+<!--                    </td>-->
+<!--                    <td>-->
+<!--                        <button class="btn btn-warning" th:onclick="|window.location='@{/editClient/{id}(id=${client.id})}'|">Modifier</button>-->
+<!--                        <button class="btn btn-danger" th:onclick="|deleteStock(${stock.id})|">Supprimer</button>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--    </div>-->
+
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

@@ -16,7 +16,7 @@ public class CommandeService {
     }
 
     public List<Commande> getAllCommandes() {
-        return commandeRepository.findAll();
+        return commandeRepository.findAllWithDetails();
     }
 
     public Optional<Commande> getCommandeById(Long id) {

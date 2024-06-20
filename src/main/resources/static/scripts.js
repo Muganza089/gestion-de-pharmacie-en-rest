@@ -27,7 +27,7 @@ function showEditClientModal(button) {
     $('#editClientModal').modal('show');
 }
 
-document.getElementById('addClientForm').addEventListener('submit', function(event) {
+document.getElementById('addClientForm').addEventListener('submit', function (event) {
     event.preventDefault();
     const formData = new FormData(this);
     fetch('/api/clients', {
@@ -66,7 +66,7 @@ function deleteProduct(id) {
 function showEditProductModal(button) {
     const id = button.getAttribute('data-id');
     const nom = button.getAttribute('data-nom');
-    const quantite  = button.getAttribute('data-quantite');
+    const quantite = button.getAttribute('data-quantite');
     const numeroLot = button.getAttribute('data-numeroLot');
     const prix = button.getAttribute('data-prix');
 
@@ -78,7 +78,7 @@ function showEditProductModal(button) {
     $('#editProductModal').modal('show');
 }
 
-document.getElementById('addProductForm').addEventListener('submit', function(event) {
+document.getElementById('addProductForm').addEventListener('submit', function (event) {
     event.preventDefault();
     const formData = new FormData(this);
     fetch('/api/produits', {
@@ -131,7 +131,7 @@ function showEditSupplierModal(button) {
     $('#editSupplierModal').modal('show');
 }
 
-document.getElementById('addSupplierForm').addEventListener('submit', function(event) {
+document.getElementById('addSupplierForm').addEventListener('submit', function (event) {
     event.preventDefault();
     const formData = new FormData(this);
     fetch('/api/fournisseurs', {
@@ -149,7 +149,7 @@ document.getElementById('addSupplierForm').addEventListener('submit', function(e
     });
 });
 
-document.getElementById('editSupplierForm').addEventListener('submit', function(event) {
+document.getElementById('editSupplierForm').addEventListener('submit', function (event) {
     event.preventDefault();
     const id = document.getElementById('editSupplierId').value;
     const formData = new FormData(this);
@@ -199,7 +199,7 @@ function showEditCommandeModal(button) {
     $('#editCommandeModal').modal('show');
 }
 
-document.getElementById('addCommandeForm').addEventListener('submit', function(event) {
+document.getElementById('addCommandeForm').addEventListener('submit', function (event) {
     event.preventDefault();
     const formData = new FormData(this);
     fetch('/api/commandes', {
@@ -217,7 +217,7 @@ document.getElementById('addCommandeForm').addEventListener('submit', function(e
     });
 });
 
-document.getElementById('editCommandeForm').addEventListener('submit', function(event) {
+document.getElementById('editCommandeForm').addEventListener('submit', function (event) {
     event.preventDefault();
     const id = document.getElementById('editCommandeId').value;
     const formData = new FormData(this);
@@ -234,4 +234,28 @@ document.getElementById('editCommandeForm').addEventListener('submit', function(
             alert('Échec de la modification de la commande');
         }
     });
+});
+
+//commandes
+    document.getElementById('ajouter').addEventListener('click', function () {
+    var fournisseur = document.getElementById('fournisseur').options[document.getElementById('fournisseur').selectedIndex].text;
+    var articleName = document.getElementById('articleName').value;
+    var articleQuantity = document.getElementById('articleQuantity').value;
+
+    if (fournisseur && articleName && articleQuantity) {
+    var table = document.getElementById('orderTable');
+    var row = table.insertRow();
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+
+    cell1.textContent = fournisseur;
+    cell2.textContent = articleName;
+    cell3.textContent = articleQuantity;
+
+    document.getElementById('articleName').value = '';
+    document.getElementById('articleQuantity').value = '';
+} else {
+    alert('Veuillez remplir tous les champs');
+}
 });

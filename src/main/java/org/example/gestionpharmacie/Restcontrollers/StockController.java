@@ -37,8 +37,7 @@ public class StockController {
         Optional<Stock> stockOptional = stockService.getStockById(id);
         if (stockOptional.isPresent()) {
             Stock stock = stockOptional.get();
-            stock.setProduit(stockDetails.getProduit());
-            stock.setQuantite(stockDetails.getQuantite());
+            stock.setProduits(stockDetails.getProduits());
             return ResponseEntity.ok(stockService.saveStock(stock));
         } else {
             return ResponseEntity.notFound().build();

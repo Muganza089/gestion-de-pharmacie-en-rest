@@ -5,6 +5,8 @@ import org.example.gestionpharmacie.ripositories.ArticleRipository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ArticleService {
     private final ArticleRipository articleRipository;
@@ -16,14 +18,17 @@ public class ArticleService {
     public List<Article> getAllArticles(){
         return articleRipository.findAll();
     }
-    public Article getArticleById(Long id){
-        return articleRipository.getReferenceById(id);
+    public Optional<Article> getArticleById(Long id){
+        return articleRipository.findById(id);
     }
     public Article saveArticle(Article article){
         return articleRipository.save(article);
     }
     public void deleteArticle(Long id){
         articleRipository.deleteById(id);
+    }
+    public List<Article> saveAllArticles(List<Article> listArticles){
+        return articleRipository.saveAll(listArticles);
     }
 
 }

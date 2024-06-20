@@ -1,9 +1,6 @@
 package org.example.gestionpharmacie.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +18,10 @@ public class Produit {
     private String numeroLot;
     private int quantite;
     private double prix;
+
+    @ManyToOne
+    @JoinColumn(name = "stock_id")
+    private Stock stock;
 
 
 }

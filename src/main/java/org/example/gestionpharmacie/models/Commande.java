@@ -25,8 +25,6 @@ public class Commande {
 
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles;
-    private Date dateCommande;
-
-    // Getters and setters
+    private String dateCommande;
 }
 
