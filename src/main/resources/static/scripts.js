@@ -69,12 +69,15 @@ function showEditProductModal(button) {
     const quantite = button.getAttribute('data-quantite');
     const numeroLot = button.getAttribute('data-numeroLot');
     const prix = button.getAttribute('data-prix');
+    const dateExpiration  = button.getAttribute('data-dateExpiration');
 
     document.getElementById('editProductId').value = id;
     document.getElementById('editProductNom').value = nom;
     document.getElementById('editProductQuantite').value = quantite;
     document.getElementById('editProductNumeroLot').value = numeroLot;
     document.getElementById('editProductPrix').value = prix;
+    document.getElementById('editDateExpiration').value = dateExpiration;
+
     $('#editProductModal').modal('show');
 }
 

@@ -29,6 +29,7 @@ public class MainController {
     private final VenteService venteService;
     private final ArticleService articleService;
     private final List<Article> listeArticles = new ArrayList<>();
+    private String message;
 
     public MainController(ProduitService produitService, ClientService clientService, StockService stockService, CommandeService commandeService, FournisseurService fournisseurService, VenteService venteService, ArticleService articleService) {
         this.produitService = produitService;
@@ -67,6 +68,8 @@ public class MainController {
 
     @GetMapping("commands")
     public String showOrdersPage(Model model) {
+        int nombreDeCommandes;
+
         model.addAttribute("commands", commandeService.getAllCommandes());
         model.addAttribute("suppliers", fournisseurService.getAllFournisseurs());
         model.addAttribute("articles", listeArticles);
@@ -116,6 +119,10 @@ public class MainController {
         System.out.println("Date : "+commande.getDateCommande());
         System.out.println("Fournisseur : "+commande.getFournisseur());
         commande.setArticles(listeArticles);
+        for(Article article : commande.getArticles()){
+            articleService.saveArticle(article);
+            article.setCommande(commande);
+        }
         System.out.println(commande.getArticles());
         commandeService.saveCommande(commande);
         //System.out.println(commande);
@@ -140,8 +147,10 @@ public class MainController {
         if(result.hasErrors()) {
             return "index";
         }
+        List<Produit> produitList = produitService.getAllProduits();
 
         for (Produit produit : stock.getProduits()) {
+
             produit.setStock(stock);
         }
 
@@ -149,6 +158,7 @@ public class MainController {
         Stock savedStock = stockService.saveStock(stock);
 
         List<Stock> allStocks = stockService.getAllStocks();
+        model.addAttribute("message");
         model.addAttribute("stocks", allStocks);
 
 

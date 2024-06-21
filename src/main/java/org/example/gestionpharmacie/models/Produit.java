@@ -16,6 +16,7 @@ public class Produit {
     private Long id;
     private String nom;
     private String numeroLot;
+    private String DateExpiration;
     private int quantite;
     private double prix;
 

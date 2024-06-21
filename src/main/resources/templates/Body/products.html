@@ -17,8 +17,9 @@
             <tr>
                 <th>Nom du Produit</th>
                 <th>Numéro de Lot</th>
-                <th>Quantité</th>
+<!--                <th>Quantité</th>-->
                 <th>Prix</th>
+                <th>Date d'expiration</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -26,14 +27,17 @@
             <tr th:each="produit : ${products}">
                 <td th:text="${produit.nom}">Nom du Produit</td>
                 <td th:text="${produit.numeroLot}">Numéro de Lot</td>
-                <td th:text="${produit.quantite}">Quantité</td>
-                <td th:text="${produit.prix}">Prix</td>
+<!--                <td th:text="${produit.quantite}">Quantité</td>-->
+                <td th:text="${produit.prix}">Prix unitaire</td>
+                <td th:text="${produit.dateExpiration}">Date d'expiration</td>
+
                 <td><button class="btn btn-warning"
                             data-id="${produit.id}"
                             data-nom="${produit.nom}"
                             data-quantite="${produit.quantite}"
                             data-numeroLot="${produit.numeroLot}"
                             data-prix="${produit.prix}"
+                            data-dateExpiration="${produit.dateExpiration}"
                             onclick="showEditProductModal(this)">
                     Modifier
                 </button>

@@ -15,6 +15,7 @@
             <h2 class="text-center">Stock</h2>
             <div class="row m-2">
                 <div class="col-md-6 ">
+                    <p class="bg-warning " th:text="${message}"></p>
                     <form action="#" th:action="@{/addProduitToStock}" th:object="${stock}" method="post" th:method="post">
 
 
@@ -52,6 +53,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Produits en stock</th>
+                            <th>Quantité unitaire</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -61,6 +63,13 @@
                             <td >
                                 <ul th:each="produit : ${stock.produits}">
                                     <li th:text="${produit.nom}"></li>
+
+                                </ul>
+
+                            </td>
+                            <td >
+                                <ul th:each="produit : ${stock.produits}">
+                                    <li th:text="${produit.quantite}"></li>
 
                                 </ul>
 

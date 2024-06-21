@@ -9,15 +9,17 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity(name = "commande")
+@AllArgsConstructor
 public class Commande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    public static int nombreCmd;
 
     @ManyToOne
     @JoinColumn(name = "fournisseur_id", referencedColumnName = "id")
@@ -26,5 +28,7 @@ public class Commande {
     @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles;
     private String dateCommande;
+
+
 }
 

@@ -42,6 +42,7 @@ public class ProduitController {
             produit.setNumeroLot(produitDetails.getNumeroLot());
             produit.setQuantite(produitDetails.getQuantite());
             produit.setPrix(produitDetails.getPrix());
+            produit.setDateExpiration(produitDetails.getDateExpiration());
             return ResponseEntity.ok(produitService.saveProduit(produit));
         } else {
             return ResponseEntity.notFound().build();
