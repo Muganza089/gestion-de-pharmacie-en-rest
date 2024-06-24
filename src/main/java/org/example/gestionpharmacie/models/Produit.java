@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 
 
 @Entity
@@ -19,10 +20,20 @@ public class Produit {
     private String DateExpiration;
     private int quantite;
     private double prix;
+    private LocalDate dateAjout;
 
     @ManyToOne
     @JoinColumn(name = "stock_id")
     private Stock stock;
+    public Produit(String nom, String numeroLot, String dateExpiration, int quantite, double prix, Stock stock) {
+        this.nom = nom;
+        this.numeroLot = numeroLot;
+        this.DateExpiration = dateExpiration;
+        this.quantite = quantite;
+        this.prix = prix;
+        this.stock = stock;
+        this.dateAjout = LocalDate.now();
+    }
 
 
 }
