@@ -28,26 +28,26 @@ public class VenteController {
         return vente.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Vente createVente(@RequestBody Vente vente) {
-        return venteService.saveVente(vente);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Vente> updateVente(@PathVariable Long id, @RequestBody Vente venteDetails) {
-        Optional<Vente> venteOptional = venteService.getVenteById(id);
-        if (venteOptional.isPresent()) {
-            Vente vente = venteOptional.get();
-            vente.setClient(venteDetails.getClient());
-            vente.setProduit(venteDetails.getProduit());
-            vente.setQuantite(venteDetails.getQuantite());
-            vente.setPrixTotal(venteDetails.getPrixTotal());
-            vente.setDateVente(venteDetails.getDateVente());
-            return ResponseEntity.ok(venteService.saveVente(vente));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @PostMapping
+//    public Vente createVente(@RequestBody Vente vente) {
+//        return venteService.saveVente(vente.getClient().getId(), vente.getProduit().getId(), vente.getQuantite());
+//    }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Vente> updateVente(@PathVariable Long id, @RequestBody Vente venteDetails) {
+//        Optional<Vente> venteOptional = venteService.getVenteById(id);
+//        if (venteOptional.isPresent()) {
+//            Vente vente = venteOptional.get();
+//            vente.setClient(venteDetails.getClient());
+//            vente.setProduit(venteDetails.getProduit());
+//
+//            vente.setPrixTotal(venteDetails.getPrixTotal());
+//            vente.setDateVente(venteDetails.getDateVente());
+//            return ResponseEntity.ok(venteService.saveVente(vente.getClient().getId(), vente.getProduit().getId(), vente.getQuantite()));
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteVente(@PathVariable Long id) {

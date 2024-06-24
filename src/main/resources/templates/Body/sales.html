@@ -1,66 +1,119 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sales</title>
+    <title>Ventes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-
 <div th:fragment="sales">
-    <div class="table-container">
-        <div class="d-flex justify-content-between mb-3">
-            <input type="text" class="form-control w-25" placeholder="Search">
-            <button class="btn btn-success justify-content-start" th:onclick="|window.location='@{/addSales}'|">Ajouter</button>
+
+    <div class="container mt-5">
+        <h2 class="text-center">Ventes</h2>
+
+        <div class="row m-2">
+            <div class="col-md-3">
+                <form th:action="@{/submitSales}" th:object="${vente}" method="post">
+                    <div class="form-group">
+                        <label for="client">Client:</label>
+                        <select id="client" name="client" class="form-control" required>
+                            <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.nom}"></option>
+                        </select>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+                <form action="#" th:action="@{/addProduit}" th:object="${produit}" method="post" th:method="post">
+                    <div class="mb-3 form-group">
+                        <label class="form-label">Liste produits à commander</label>
+                        <!---->
+                        <select name="produit" class="form-control">
+                            <option th:each="p : ${produits}" th:value="${p.id}" th:text="${p.nom}"></option>
+                        </select>
+                        <input type="number" name="quantite" class="form-control" placeholder="Quantité" min="1" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary mb-2" >Ajouter un produit</button>
+                </form>
+
+
+            </div>
+            <div class="col-md-9">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Quantité</th>
+                        <th>Prix unitaire</th>
+                        <th>Prix total</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="prod : ${prods}">
+                        <td th:text="${prod.nom}">Produit</td>
+                        <td th:text="${prod.quantite}">Quantité</td>
+                        <td th:text="${prod.prix}">Prix unitaire</td>
+                        <td th:text="${prod.quantite * prod.prix}">Prix total</td>
+                        <td>
+                            <button class="btn btn-warning">Modifier</button>
+                            <button class="btn btn-danger" th:onclick="">Supprimer</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    <!-- Sales Table -->
-    <div class="table-container">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Client</th>
-                <th>Produit</th>
-                <th>Quantité</th>
-                <th>Prix Total</th>
-                <th>Date de Vente</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="sale : ${sales}">
-                <td th:text="${sale.client.nom}">Nom du Client</td>
-                <td th:text="${sale.produit.nom}">Nom du Produit</td>
-                <td th:text="${sale.quantite}">Quantité</td>
-                <td th:text="${sale.prixTotal}">Prix Total</td>
-                <td th:text="${#dates.format(sale.dateVente, 'dd/MM/yyyy')}">Date de Vente</td>
-                <td>
-                    <button class="btn btn-warning" th:onclick="|window.location='@{/editClient/{id}(id=${client.id})}'|">Modifier</button>
-                    <button class="btn btn-danger" th:onclick="|deleteSales(${vente.id})|">Supprimer</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
     </div>
+    <div class="row">
+
+        <div class="col-md">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix Total</th>
+                    <th>Date de Vente</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sale : ${sales}">
+                    <td th:text="${sale.client.nom}">Nom du Client</td>
+                    <td>
+                        <ul>
+                            <li th:each="productSale : ${sale.produitVendus}" th:text="${productSale.nom}"></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li th:each="productSale : ${sale.produitVendus}" th:text="${productSale.quantite}"></li>
+                        </ul>
+                    </td>
+                    <td th:text="${sale.prixTotal}">Prix Total</td>
+                    <td th:text="${#temporals.format(sale.dateVente, 'dd/MM/yyyy')}">Date de Vente</td>
+                    <td>
+                        <button class="btn btn-warning">Modifier</button>
+                        <button class="btn btn-danger" th:onclick="|deleteSale(${sale.id})|">Supprimer</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
 </div>
-</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    function deleteSales(id) {
-        if (confirm('Etes vous sur de supprimer cette vente ?')) {
-            fetch(`/api/ventes/${id}`, {
-                method: 'DELETE'
-            })
-                .then(response => {
-                    if (response.ok) {
-                        window.location.reload();
-                    } else {
-                        alert('Echec de suppression de la vente !');
-                    }
-                });
-        }
-    }
-</script>
+
+
 </body>
 </html>

@@ -6,23 +6,39 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.domain.AfterDomainEventPublication;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
-@NoArgsConstructor @AllArgsConstructor @Setter @Getter
+import java.util.List;
+
 @Entity
+@NoArgsConstructor @AllArgsConstructor @Getter @Setter
 public class Vente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private Client client;
-    @ManyToOne
-    @JoinColumn(name = "produit_id", referencedColumnName = "id")
-    private Produit produit;
-    private int quantite;
-    private double prixTotal;
-    private Date dateVente;
 
-    // Getters and setters
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    private double prixTotal;
+    private LocalDate dateVente;
+
+    @OneToMany(mappedBy = "vente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Produit> produits = new ArrayList<>();
+
+    @OneToMany(mappedBy = "vente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProduitVendu> produitVendus = new ArrayList<>();
+
+    public Vente(Client client, List<ProduitVendu> produits, double prixTotal) {
+        this.client = client;
+        this.produitVendus = produits;
+        this.prixTotal = prixTotal;
+        this.dateVente = LocalDate.now();
+    }
 }
+
+

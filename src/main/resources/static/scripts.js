@@ -69,7 +69,7 @@ function showEditProductModal(button) {
     const quantite = button.getAttribute('data-quantite');
     const numeroLot = button.getAttribute('data-numeroLot');
     const prix = button.getAttribute('data-prix');
-    const dateExpiration  = button.getAttribute('data-dateExpiration');
+    const dateExpiration = button.getAttribute('data-dateExpiration');
 
     document.getElementById('editProductId').value = id;
     document.getElementById('editProductNom').value = nom;
@@ -240,25 +240,59 @@ document.getElementById('editCommandeForm').addEventListener('submit', function 
 });
 
 //commandes
-    document.getElementById('ajouter').addEventListener('click', function () {
+document.getElementById('ajouter').addEventListener('click', function () {
     var fournisseur = document.getElementById('fournisseur').options[document.getElementById('fournisseur').selectedIndex].text;
     var articleName = document.getElementById('articleName').value;
     var articleQuantity = document.getElementById('articleQuantity').value;
 
     if (fournisseur && articleName && articleQuantity) {
-    var table = document.getElementById('orderTable');
-    var row = table.insertRow();
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
+        var table = document.getElementById('orderTable');
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
 
-    cell1.textContent = fournisseur;
-    cell2.textContent = articleName;
-    cell3.textContent = articleQuantity;
+        cell1.textContent = fournisseur;
+        cell2.textContent = articleName;
+        cell3.textContent = articleQuantity;
 
-    document.getElementById('articleName').value = '';
-    document.getElementById('articleQuantity').value = '';
-} else {
-    alert('Veuillez remplir tous les champs');
-}
+        document.getElementById('articleName').value = '';
+        document.getElementById('articleQuantity').value = '';
+    } else {
+        alert('Veuillez remplir tous les champs');
+    }
 });
+//Formulaire vente
+
+
+    document.getElementById('productNumberForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const numberOfProducts = document.getElementById('numberOfProducts').value;
+    generateProductForms(numberOfProducts);
+});
+
+    function generateProductForms(numberOfProducts) {
+    const productsContainer = document.getElementById('productsContainer');
+    productsContainer.innerHTML = ''; // Clear any existing fields
+
+    for (let i = 0; i < numberOfProducts; i++) {
+    const productRow = document.createElement('div');
+    productRow.className = 'form-row mb-2';
+    productRow.innerHTML = `
+                <div class="col">
+                    <select class="form-control" name="produits[${i}].produitId" required>
+                        <option value="" disabled selected>Choisir un produit</option>
+                        <option th:each="produit : ${produits}" th:value="\${produit.id}" th:text="\${produit.nom}"></option>
+                    </select>
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" name="produits[${i}].quantite" placeholder="Quantité" required>
+                </div>
+            `;
+    productsContainer.appendChild(productRow);
+}
+
+    // Hide step 1 and show step 2
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('step2').style.display = 'block';
+}
