@@ -30,7 +30,7 @@ public class VenteController {
 
     @PostMapping
     public Vente createVente(@RequestBody Vente vente) {
-        return venteService.saveVente(vente);
+        return venteService.saveVente(vente.getClient().getId(), vente.getProduit().getId(), vente.getQuantite());
     }
 
     @PutMapping("/{id}")
@@ -43,7 +43,7 @@ public class VenteController {
             vente.setQuantite(venteDetails.getQuantite());
             vente.setPrixTotal(venteDetails.getPrixTotal());
             vente.setDateVente(venteDetails.getDateVente());
-            return ResponseEntity.ok(venteService.saveVente(vente));
+            return ResponseEntity.ok(venteService.saveVente(vente.getClient().getId(), vente.getProduit().getId(), vente.getQuantite()));
         } else {
             return ResponseEntity.notFound().build();
         }

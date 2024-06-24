@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class MainController {
     public String showStocksPage(Model model) {
 
         model.addAttribute("stocks", stockService.getAllStocks());
-        model.addAttribute("produits",produitService.getAllProduits());
+        model.addAttribute("produits", produitService.getAllProduits());
         model.addAttribute("path", "/stocks");
         return "index";
     }
@@ -86,9 +87,33 @@ public class MainController {
 
     @GetMapping("sales")
     public String showSalesPage(Model model) {
+        List<Produit> listProduitsEnStock = new ArrayList<>();
+        for(Stock stock : stockService.getAllStocks()){
+            listProduitsEnStock.addAll(stock.getProduits());
+        }
         model.addAttribute("sales", venteService.getAllVentes());
+        model.addAttribute("clients", clientService.getAllClients());
+        model.addAttribute("produits", listProduitsEnStock);
+
+
         model.addAttribute("path", "/sales");
         return "index";
+    }
+    @PostMapping("/addSale")
+    public String addSale(@RequestParam Long clientId, @RequestParam Long produitId, @RequestParam int quantite, Model model) {
+        try {
+            venteService.saveVente(clientId, produitId, quantite);
+            model.addAttribute("message", "Vente enregistrée avec succès.");
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/sales";
+    }
+
+    @PostMapping("/deleteSale")
+    public String deleteSale(@RequestParam Long id, Model model) {
+        venteService.deleteVente(id);
+        return "redirect:/sales";
     }
 
     @GetMapping
@@ -98,13 +123,13 @@ public class MainController {
     }
 
     @PostMapping("/submitStock")
-    public String submitStock(@Validated Stock stock, BindingResult result, Model model){
+    public String submitStock(@Validated Stock stock, BindingResult result, Model model) {
 
 
         stockService.saveStock(stock);
         System.out.println(stock.getProduits());
 
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "index";
         }
         return "index";
@@ -112,14 +137,13 @@ public class MainController {
 
 
     @PostMapping("/submitCommand")
-    public String submitCommand(@Validated Commande commande, BindingResult result, Model model){
+    public String submitCommand(@Validated Commande commande, BindingResult result, Model model) {
 
 
-
-        System.out.println("Date : "+commande.getDateCommande());
-        System.out.println("Fournisseur : "+commande.getFournisseur());
+        System.out.println("Date : " + commande.getDateCommande());
+        System.out.println("Fournisseur : " + commande.getFournisseur());
         commande.setArticles(listeArticles);
-        for(Article article : commande.getArticles()){
+        for (Article article : commande.getArticles()) {
             articleService.saveArticle(article);
             article.setCommande(commande);
         }
@@ -127,24 +151,26 @@ public class MainController {
         commandeService.saveCommande(commande);
         //System.out.println(commande);
         //System.out.println(commandeService.getAllCommandes());
-        if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "index";
         }
         return "index";
     }
+
     @PostMapping("/addArticle")
-    public String addArticle(@Validated Article article, BindingResult result, Model model){
+    public String addArticle(@Validated Article article, BindingResult result, Model model) {
         listeArticles.add(article);
-         if(result.hasErrors()) {
+        if (result.hasErrors()) {
             return "index";
         }
         //model.addAttribute("articles", listeArticles);
         return "redirect:/commands";
     }
-    @PostMapping("/addProduitToStock")
-    public String addToStock(@Validated Stock stock, BindingResult result, Model model){
 
-        if(result.hasErrors()) {
+    @PostMapping("/addProduitToStock")
+    public String addToStock(@Validated Stock stock, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
             return "index";
         }
         List<Produit> produitList = produitService.getAllProduits();
@@ -162,16 +188,28 @@ public class MainController {
         model.addAttribute("stocks", allStocks);
 
 
-
-        System.out.println(" tous les stock "+stockService.getAllStocks());
+        System.out.println(" tous les stock " + stockService.getAllStocks());
 //        System.out.println("ID STOCK : "+stock1.getId());
 //        System.out.println("PRODUITS EN STOCK : "+stock1.getProduits());
 
-       // model.addAttribute("stocks", stockService.getAllStocks());
+        // model.addAttribute("stocks", stockService.getAllStocks());
         //model.addAttribute("articles", listeArticles);
         return "redirect:/stocks";
     }
 
+    @PostMapping("/retirerProduits")
+    public String retirerProduits(@RequestParam String nomProduit, @RequestParam int quantite, Model model) {
+        try {
+            List<Produit> produitsRetires = stockService.retirerProduits(nomProduit, quantite);
+            model.addAttribute("produitsRetires", produitsRetires);
+            model.addAttribute("message", "Produits retirés avec succès.");
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+        }
+
+        model.addAttribute("stocks", stockService.getAllStocks());
+        return "index";
 
 
+    }
 }
